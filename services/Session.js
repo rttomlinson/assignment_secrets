@@ -1,7 +1,9 @@
 "use strict";
 const secret = process.env["secret"] || "puppies";
 const md5 = require("md5");
-const { User } = require("../models");
+const {
+    User
+} = require("../models");
 
 
 let Session = {};
@@ -30,7 +32,8 @@ Session.validateSessionId = (req, res, next) => {
             res.locals.currentUser = user;
             next();
         })
-    } else {
+    }
+    else {
         res.end("Nice try");
     }
 
@@ -39,7 +42,8 @@ Session.validateSessionId = (req, res, next) => {
 Session.loggedInOnly = (req, res, next) => {
     if (req.user) {
         next()
-    } else {
+    }
+    else {
         res.redirect("/login");
     }
 }
@@ -47,7 +51,8 @@ Session.loggedInOnly = (req, res, next) => {
 Session.loggedOutOnly = (req, res, next) => {
     if (!req.user) {
         next()
-    } else {
+    }
+    else {
         res.redirect("/");
     }
 }

@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const { User } = require('../models');
+const {
+    User
+} = require('../models');
 const {
     createSignedSessionId,
     validateSessionId,
@@ -11,10 +13,26 @@ const {
 
 
 router.get("login", loggedOutOnly, (req, res) => {
-	res.render("sessions/login")
-})
+    res.render("sessions/login")
+});
 
+router.post("login", loggedOutOnly, (req, res, next) => {
+    let {
+        email,
+        password
+    } = req.body;
+    User.findOne({
+            email
+        })
+        .then(user => {
+            if (user.validatePassword(password)) {
+                res.cookie('sessionId', createSignedSessionId(email));
+                res.redirect('/');
+            }
+            else {
 
-
-
-
+                res.redirect("/login");
+            }
+        })
+        .catch(next);
+});

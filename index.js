@@ -31,5 +31,23 @@ app.use((req, res, next) => {
     }
 });
 
+////////////////////////////////////////////
+// Flash Messages
+/////////////////////////////////////////////
+var flash = require('express-flash-messages');
+app.use(flash());
+
+
+
+let {
+    loggedInOnly,
+    validateSessionId
+} = require("./services/Session");
+
+app.use(validateSessionId);
+
 const sessionsRouter = require("./routers/sessions");
 app.use("/", sessionsRouter);
+app.get("/", loggedInOnly, (req, res) => {
+    res.render('home');
+});
