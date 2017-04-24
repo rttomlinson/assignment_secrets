@@ -40,7 +40,7 @@ router.post("/request", function(req, res) {
     let secretId = req.body.secretId;
     Secret.findById(secretId).then((secret) => {
         if (!(secret.requestedUsers.includes(req.user._id))) {
-            secret.requestedUsers.push(req.user._id)
+            secret.requestedUsers.push(req.user._id);
         }
         return secret.save()
     }).then(() => {
@@ -50,18 +50,16 @@ router.post("/request", function(req, res) {
 
 router.post("/accept", function(req, res) {
     let secretId = req.body.secretId;
-    console.log(secretId);
+    let requesterId = req.body.requesterId;
     Secret.findById(secretId).then((secret) => {
-        if (secret.requestedUsers.includes(req.user._id)) {
-            secret.authorizedUsers.push(req.user._id);
-            var index = secret.requestedUsers.indexOf(req.user._id);
-            secret.requestedUsers.splice(index, 1);
-        }
-        return secret.save()
+        secret.authorizedUsers.push(requesterId);
+        var index = secret.requestedUsers.indexOf(requesterId);
+        secret.requestedUsers.splice(index, 1);
+        return secret.save();
     }).then(() => {
         res.redirect("back");
-    })    
-})
+    });
+});
 
 
 module.exports = router;

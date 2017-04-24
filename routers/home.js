@@ -20,6 +20,7 @@ router.get("/", loggedInOnly, (req, res) => {
     Promise.all([mySecretsPromise, sharedSecretsPromise])
         .then(([mySecrets, sharedSecrets]) => {
             console.log("sharedsecrets", sharedSecrets);
+            console.log("mysecrets", mySecrets);
             res.render("home", {
                 mySecrets,
                 sharedSecrets

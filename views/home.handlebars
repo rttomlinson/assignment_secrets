@@ -10,32 +10,31 @@
 <div>
     <h2>My secrets</h2>
     {{#each mySecrets as |secret|}}
-        <p class="lead">{{secret.text}}</p>
-        {{#if secret.requestedUsers}}
-            <p>Requests:</p>
-            <ul>
-                {{#each secret.requestedUsers as |requestUser|}}
-                    <li>
-                        <p>{{requestUser.email}}</p>
-                        <form method="post" action="/secrets/accept">
-                            <div class="form-group">
-                                <input type="hidden" name="secretId" value="{{../secret._id}}">
-                                <input type="hidden" name="requesterId" value="{{requestUser._id}}">
-                                <input type="submit" value="Accept" class="btn btn-primary">
-                            </div>
-                        </form>
-                        <form method="post" action="/secrets/decline">
-                            <div class="form-group">
-                                <input type="hidden" name="secretId" value="{{../secret._id}}">
-                                <input type="hidden" name="requesterId" value="{{requestUser._id}}">
-                                <input type="submit" value="Decline" class="btn btn-primary">
-                            </div>
-                        </form>
-                    </li>
-                {{/each}} 
-            </ul>
-        {{/if}}
-    {{/each}}
+    <p class="lead">{{secret.text}}</p>
+    {{#if secret.requestedUsers}}
+    <p>Requests:</p>
+    <ul>
+        {{#each secret.requestedUsers as |requestUser|}}
+        <li>
+            <p>{{requestUser.email}}</p>
+            <form method="post" action="/secrets/accept">
+                <div class="form-group">
+                    <input type="hidden" name="secretId" value="{{secret._id}}">
+                    <input type="hidden" name="requesterId" value="{{requestUser._id}}">
+                    <input type="submit" value="Accept" class="btn btn-primary">
+                </div>
+            </form>
+            <form method="post" action="/secrets/decline">
+                <div class="form-group">
+                    <input type="hidden" name="secretId" value="{{secret._id}}">
+                    <input type="hidden" name="requesterId" value="{{requestUser._id}}">
+                    <input type="submit" value="Decline" class="btn btn-primary">
+                </div>
+            </form>
+        </li>
+        {{/each}}
+    </ul>
+    {{/if}} {{/each}}
 </div>
 <div>
     <h2>Shared secrets</h2>
