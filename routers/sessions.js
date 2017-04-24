@@ -34,5 +34,7 @@ router.post("login", loggedOutOnly, (req, res, next) => {
                 res.redirect("/login");
             }
         })
-        .catch(next);
+        .catch((err) => {
+            res.end(`Error getting the data from db`);
+        });
 });
