@@ -1,0 +1,24 @@
+{
+  "name": "assignment_secrets",
+  "version": "1.0.0",
+  "description": "Build a web app that allows users to store and share their darkest secrets.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rttomlinson/assignment_secrets.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rttomlinson/assignment_secrets/issues"
+  },
+  "homepage": "https://github.com/rttomlinson/assignment_secrets#readme",
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "mongoose": "^4.9.6",
+    "mongoose-unique-validator": "^1.0.5"
+  }
+}
