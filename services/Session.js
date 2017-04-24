@@ -31,7 +31,7 @@ Session.validateSessionId = (req, res, next) => {
             req.user = user;
             res.locals.currentUser = user;
             next();
-        })
+        });
     }
     else {
         res.end("Nice try");

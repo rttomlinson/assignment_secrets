@@ -38,28 +38,31 @@ router.post("/login", loggedOutOnly, (req, res) => {
 
 router.get("/register", loggedOutOnly, (req, res) => {
     res.render("sessions/register");
-})
+});
 
 router.post("/register", loggedOutOnly, (req, res) => {
     let {
         email,
         password
     } = req.body;
-    let user = new User({ email, password });
+    let user = new User({
+        email,
+        password
+    });
     user.save()
         .then(() => {
             res.cookie('sessionId', createSignedSessionId(email));
-            res.redirect('/');        
+            res.redirect('/');
         })
         .catch((err) => {
             res.end(`Error creating new user`);
         });
-})
+});
 
 
 router.get('/logout', (req, res) => {
     res.cookie("sessionId", "", {
-        expires: new Date(Date.now())
+        expires: new Date()
     });
     res.redirect('/login');
 });

@@ -45,14 +45,15 @@ let {
 } = require("./services/Session");
 
 app.use(validateSessionId);
-
+const secretsRouter = require('./routers/secrets');
 const sessionsRouter = require("./routers/sessions");
 app.use("/", sessionsRouter);
+app.use("/secrets", secretsRouter);
 app.get("/", loggedInOnly, (req, res) => {
     res.render('home');
 });
 
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log("Server running");
 });

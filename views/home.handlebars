@@ -1,1 +1,21 @@
 <h1>Welcome, {{currentUser.email}}</h1>
+
+<form method="post" action="/secrets/new">
+    <div class="form-group">
+        <label for="new-secret">New Secret</label>
+        <input class="form-control" type="text" name="new-secret" id="new-secret">
+    </div>
+</form>
+
+<div>
+    <h2>My secrets</h2>
+    {{#each mySecrets as |secret|}}
+    <p>{{secret.text}}</p>
+    {{#each secret.requests as |request|}}
+    <p>{{request.name}}</p>
+
+    {{/each}} {{/each}}
+</div>
+
+
+/home get /secrets/ post /secrets/new
