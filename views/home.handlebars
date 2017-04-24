@@ -10,12 +10,12 @@
 <div>
     <h2>My secrets</h2>
     {{#each mySecrets as |secret|}}
-    <p>{{secret.text}}</p>
-    {{#each secret.requests as |request|}}
-    <p>{{request.name}}</p>
-
-    {{/each}} {{/each}}
+        <p>{{secret.text}}</p>
+        {{#each secret.requests as |request|}}
+            <p>{{request.name}}</p>
+        {{/each}}
+    {{/each}} 
 </div>
 
 
-/home get /secrets/ post /secrets/new
+

@@ -47,13 +47,17 @@ let {
 app.use(validateSessionId);
 const secretsRouter = require('./routers/secrets');
 const sessionsRouter = require("./routers/sessions");
+const homeRouter = require("./routers/home")
+
 app.use("/", sessionsRouter);
 app.use("/secrets", secretsRouter);
-app.get("/", loggedInOnly, (req, res) => {
-    res.render('home');
-});
+app.use("/", homeRouter);
 
 
 app.listen(process.env.PORT || 3000, () => {
     console.log("Server running");
 });
+
+
+
+
