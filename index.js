@@ -30,8 +30,8 @@ app.use((req, res, next) => {
         mongoose.connect("mongodb://localhost/test")
             .then(() => {
                 // cleanDb().then(() => {
-                    next()   
-                // })
+                next()
+                    // })
             });
     }
 });
