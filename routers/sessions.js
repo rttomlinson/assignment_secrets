@@ -6,14 +6,12 @@ const {
 } = require('../models');
 const {
     createSignedSessionId,
-    validateSessionId,
-    loggedInOnly,
     loggedOutOnly
 } = require('../services/Session');
 
 
 router.get("login", loggedOutOnly, (req, res) => {
-    res.render("sessions/login")
+    res.render("sessions/login");
 });
 
 router.post("login", loggedOutOnly, (req, res, next) => {
@@ -30,7 +28,6 @@ router.post("login", loggedOutOnly, (req, res, next) => {
                 res.redirect('/');
             }
             else {
-
                 res.redirect("/login");
             }
         })
@@ -38,3 +35,13 @@ router.post("login", loggedOutOnly, (req, res, next) => {
             res.end(`Error getting the data from db`);
         });
 });
+
+
+router.get('/logout', (req, res) => {
+    res.cookie("sessionId", "", {
+        expires: new Date(Date.now())
+    });
+    res.redirect('/login');
+});
+
+module.exports = router;
