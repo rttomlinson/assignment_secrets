@@ -18,7 +18,7 @@ function generateSignature(email) {
 
 Session.validateSessionId = (req, res, next) => {
     //check for cookie
-    let sessionId = req.cookie.sessionId;
+    let sessionId = req.cookies.sessionId;
     if (!sessionId) {
         return next();
     }

@@ -10,11 +10,11 @@ const {
 } = require('../services/Session');
 
 
-router.get("login", loggedOutOnly, (req, res) => {
+router.get("/login", loggedOutOnly, (req, res) => {
     res.render("sessions/login");
 });
 
-router.post("login", loggedOutOnly, (req, res, next) => {
+router.post("/login", loggedOutOnly, (req, res) => {
     let {
         email,
         password
@@ -35,6 +35,26 @@ router.post("login", loggedOutOnly, (req, res, next) => {
             res.end(`Error getting the data from db`);
         });
 });
+
+router.get("/register", loggedOutOnly, (req, res) => {
+    res.render("sessions/register");
+})
+
+router.post("/register", loggedOutOnly, (req, res) => {
+    let {
+        email,
+        password
+    } = req.body;
+    let user = new User({ email, password });
+    user.save()
+        .then(() => {
+            res.cookie('sessionId', createSignedSessionId(email));
+            res.redirect('/');        
+        })
+        .catch((err) => {
+            res.end(`Error creating new user`);
+        });
+})
 
 
 router.get('/logout', (req, res) => {
