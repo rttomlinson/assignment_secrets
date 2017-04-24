@@ -1,7 +1,7 @@
 "use strict";
 const secret = process.env["secret"] || "puppies";
 const md5 = require("md5");
-const User = require("../models/User");
+const { User } = require("../models");
 
 
 let Session = {};
@@ -23,10 +23,34 @@ Session.validateSessionId = (req, res, next) => {
     let [email, signature] = sessionId.split(":");
     //check if cookie matches the generated hash
     if (signature === generateSignature(email)) {
-
+        User.findOne({
+            email: email
+        }).then((user) => {
+            req.user = user;
+            res.locals.currentUser = user;
+            next();
+        })
+    } else {
+        res.end("Nice try");
     }
 
 };
+
+Session.loggedInOnly = (req, res, next) => {
+    if (req.user) {
+        next()
+    } else {
+        res.redirect("/login");
+    }
+}
+
+Session.loggedOutOnly = (req, res, next) => {
+    if (!req.user) {
+        next()
+    } else {
+        res.redirect("/");
+    }
+}
 
 
 

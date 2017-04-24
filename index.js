@@ -31,10 +31,5 @@ app.use((req, res, next) => {
     }
 });
 
-const User = require('./models/User');
-const {
-    createSignedSessionId,
-    loginMiddleware,
-    logginInOnly,
-    loggedOutOnly
-} = require('./services/Session');
+const sessionsRouter = require("./routers/sessions");
+app.use("/", sessionsRouter);
