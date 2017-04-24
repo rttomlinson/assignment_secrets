@@ -10,12 +10,15 @@
 <div>
     <h2>My secrets</h2>
     {{#each mySecrets as |secret|}}
-        <p>{{secret.text}}</p>
-        {{#each secret.requests as |request|}}
-            <p>{{request.name}}</p>
-        {{/each}}
-    {{/each}} 
+    <p>{{secret.text}}</p>
+    {{#each secret.requests as |request|}}
+    <p>{{request.name}}</p>
+    {{/each}} {{/each}}
 </div>
-
-
-
+<div>
+    <h2>Shared secrets</h2>
+    {{#each sharedSecrets as |secret|}}
+    <p>{{secret.createdAt}}:{{secret.author}}</p>
+    <p>{{secret.text}}</p>
+    {{/each}}
+</div>
