@@ -13,7 +13,7 @@ const {
 router.get("/", loggedInOnly, (req, res) => {
     let mySecretsPromise = Secret.find({
         author: req.user._id
-    });
+    }).populate("requestedUsers");
     let sharedSecretsPromise = Secret.find({
         authorizedUsers: req.user._id
     });
