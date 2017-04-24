@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const {
-    Secret
+    Secret    
 } = require("../models")
 
 
@@ -15,12 +15,19 @@ router.post('/new', function(req, res) {
     let secret = new Secret({
         text: text,
         author: req.user._id,
-        authorizedUsers: []
+        authorizedUsers: [],
+        requestedUsers: []
     })
     secret.save().then(() => {
         res.redirect("/");
     })
 });
+
+router.get("/all", (req, res) => {
+    Secret.find().populate("author").then((secrets) => {
+        res.render("secrets", {secrets})
+    })
+})
 
 
 module.exports = router;

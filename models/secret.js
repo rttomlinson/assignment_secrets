@@ -15,6 +15,10 @@ const SecretSchema = new Schema({
 	authorizedUsers: [{
     type: Schema.Types.ObjectId,
     ref: "User" 
+  	}],
+  requestedUsers: [{
+    type: Schema.Types.ObjectId,
+    ref: "User" 
   	}]
 }, {
 	timestamps: true

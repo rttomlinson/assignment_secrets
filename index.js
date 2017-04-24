@@ -19,6 +19,7 @@ app.engine("handlebars", exphbs({
 }));
 app.set("view engine", "handlebars");
 
+const cleanDb = require("./seeds/clean")
 
 const mongoose = require('mongoose');
 app.use((req, res, next) => {
@@ -27,7 +28,11 @@ app.use((req, res, next) => {
     }
     else {
         mongoose.connect("mongodb://localhost/test")
-            .then(() => next());
+            .then(() => {
+                // cleanDb().then(() => {
+                    next()   
+                // })
+            });
     }
 });
 
